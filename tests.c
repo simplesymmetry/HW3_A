@@ -1,8 +1,9 @@
-/*
- * tests.c
+/** tests.c
+ * This is the main testing c file. It will test various cases and a few
+ * special corner cases provided.
  *
- *  Created on: Jan 24, 2019
- *      Author: student
+ *  Created on: February 12, 2019
+ *      Author: Tom Graham
  */
 
 #include <stdio.h>
@@ -12,6 +13,12 @@
 #include "production.h"
 #include "mystring.h"
 
+/**
+ * This is the main boolean driver of the file.
+ * It will extensively test a lot of cases in the file
+ * and special corner cases.
+ * @return true if pass, false otherwise
+ */
 bool tests(void)
 {
 	bool ok = false;
@@ -129,7 +136,7 @@ bool testMystrdup() {
 	return ok;
 }
 
-/*
+/**
  * Test mystrcpy() function.
  * @return true if pass, false if fail.
  */
@@ -153,18 +160,19 @@ bool testMystrcpy() {
 	return ok;
 }
 
-/*
- * Test mystrncpy() function.
+/**
+ * Test mystrncpy() function. This is a boolean function used to test
+ * mystrncpy vs the regular strncpy.
  * @return true if pass, false if fail.
  */
 
 bool testMystrncpy() {
 	bool ok1 = false;
+	bool ok2 = false;
+
 	char s1a[] = "012345678901234567890123456789"; // A long string
 	char s2a[] = "ABCDEF"; // A short string we will copy into it.
 	char* s3a = strncpy(s1a, s2a, 6); // The result
-
-	printf("In testMystrncpy(): s3a = /%s/\n", s3a);
 
 	char s1b[] = "012345678901234567890123456789"; // A long string
 	char s2b[] = "ABCDEF"; // A short string we will copy into it.
@@ -174,11 +182,17 @@ bool testMystrncpy() {
 		ok1 = true;
 	}
 
+	if (!ok1){
+		printf("In strncpy(): s1a = /%s/\n", s1a);
+		printf("In testMystrncpy(): s2a = /%s/\n", s2a);
+	}
+
 	return ok1;
 }
 
-/*
- * Test mystrncat() function.
+/**
+ * Test mystrncat() function. This is a boolean function used to test
+ * mystrcat vs the regular strcat.
  * @return true if pass, false if fail.
  */
 bool testMystrncat() {
@@ -187,24 +201,27 @@ bool testMystrncat() {
 
 	char s1a[] = "012345678901234567890123456789"; // A long string
 	char s2a[] = "ABCDEF"; // A short string we will copy into it twice.
-	char* s3a = strcpy(s1a, s2a);
+	char* s3a = mystrcpy(s1a, s2a);
 	char* s4a =	strncat(s1a, s2a, 6); // The result
 
-	printf("In testMystrncat(): s1a = /%s/\n", s1a);
-	printf("In testMystrncat(): s4a = /%s/\n", s4a);
 
 	char s1b[] = "012345678901234567890123456789"; // A long string
 	char s2b[] = "ABCDEF"; // A short string we will copy into it twice.
-	char* s3b = strcpy(s1b, s2b);
+	char* s3b = mystrcpy(s1b, s2b);
 	char* s4b = mystrncat(s1b, s2b, 6); // The result
 
-	if (strcmp(s1a, s1b) == 0) {
+	if (strcmp(s3a, s3b) == 0) {
 		ok1 = true;
 	}
-
-	if (strcmp(s4a, s4b) == 0) {
+	if (strcmp(s4a, s4b) == 0){
 		ok2 = true;
 	}
 
+	if (!ok1 || !ok2){
+		printf("In testMystrncat(): s3a = /%s/\n", s3a);
+		printf("In testMystrncat(): s3b = /%s/\n", s3b);
+		printf("In testMystrncat(): s4a = /%s/\n", s4a);
+		printf("In testMystrncat(): s4b = /%s/\n", s4b);
+	}
 	return ok1 && ok2;
 }

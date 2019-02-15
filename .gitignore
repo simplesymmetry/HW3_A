@@ -1,0 +1,12 @@
+
+.DS_Store
+*.png
+*.css
+*.js
+*.html
+*.md5
+*.o
+*.sty
+*.tex
+latex/Makefile
+HW3A

@@ -1,10 +1,9 @@
-/*
- * mystring.h
- *
- *  Created on: Jan 24, 2019
- *      Author: student
+/** mystring.h
+ * This is the my string header file. It will be used to list the prototype of the functions
+ * to be used in the actual file.
+ *  Created on: February 12, 2019
+ *      Author: Tom Graham
  */
-
 #ifndef MYSTRING_H_
 #define MYSTRING_H_
 //has to be the same as strlen

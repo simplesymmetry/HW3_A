@@ -1,8 +1,8 @@
-/*
- * mystring.c
- *
- * This is the mystring .c file.
- *  Created on: January 24, 2019
+/** mystring.c
+ * This is the my string c file. It will be used to implement the c functions.
+ * Theses implementations are meant to use special rules, no array brackets and
+ * no dereference increments.
+ *  Created on: February 12, 2019
  *      Author: Tom Graham
  */
 #include <stdlib.h>
@@ -68,59 +68,49 @@ char* mystrdup(char* s) {
 }
 
 /**
- * A function used to copy entire source to destination.
- * @param *destination The pointer to destination.
- * @param *source The pointer to the source.
- * @return temp_ptr to the newly copied string.
+ * A function used to copy the source string to the destinations string.
+ * This includes the \0 terminator.
+ * @param destination The pointer to destination.
+ * @param source The pointer to the source.
+ * @return temp_ptr This is the saved destination string to safely return to.
  */
 char* mystrcpy(char* dest, char* src) {
-	if (dest == NULL || src == NULL){
-		return NULL;
-	}
-
 	char *temp_ptr = dest;
-	while((*dest++ = *src++) != '\0'); // @suppress("Assignment in condition")
-
+	while(*dest++ = *src++);// @suppress("Assignment in condition")
 	return temp_ptr;
 }
 
 /**
  * A function used to copy a string with a given size.
- * @param *dest The pointer to destination.
- * @param *src The pointer to the source.
- * @param n The size of the string.
+ * The difference here is that strncpy will copy n chars from source
+ * to the destination.
+ * @param dest A pointer to destination string.
+ * @param src A pointer to the source, the data to copy.
+ * @param n The size of the data to copy.
+ * @return temp_ptr This is the saved destination string to safely return to.
  */
 char* mystrncpy(char* dest, char* src, size_t n) {
-	if (dest == NULL){
-		return NULL;
-	}
-	size_t temp = n;
-	temp += 1;
-	//First we save the pointer
 	char *temp_ptr = dest;
-
-	//Decrement n first then we set destination++ to src++, and loop.
-	while(n-- && (*dest++ = *src++) && (*temp_ptr != '/0'));
+	n += mystrlen1(dest);
+	while (n-- && *src){
+		*dest++ = *src++;
+	}
 	return temp_ptr;
 }
 
 /**
- * A function used to concat a string that has size passed with it..
- * @param *dest The pointer to destination.
- * @param *src The pointer to the source.
- * @param n Amount of bytes of
- * @return A char pointer to the dest of string.
+ * A function used to concatenate two parts of strings together. Copy up to n bytes.
+ * @param dest The pointer to destination char.
+ * @param src The pointer to the source char.
+ * @param n Amount of data to copy
+ * @return A char pointer to the destination of the string.
  */
-char* mystrncat(char* dest, char* src, size_t n) {
-    size_t dest_len = strlen(dest);
-
-    while (n-- && *src++ != '\0'){
-    	dest[dest_len++] =*src++;
-    	if (n==1){
-    		*(dest + dest_len) = '\0';
-    	}
-    }
-   return dest;
+char* mystrncat(char* dest, char* src, size_t n){
+	char *temp = dest;
+	dest += mystrlen1(dest);
+	while (*src && n--){
+		*dest++ = *src++;
+	}
+	*dest = '\0';
+	return temp;
 }
-
-

@@ -1,10 +1,10 @@
 /*
  ============================================================================
  Name        : HW3starter.c
- Author      : 
- Version     :
+ Author      : Tom Graham
+ Version     : 0.0.1
  Copyright   : Your copyright notice
- Description : Hello World in C, Ansi-style
+ Description : Homework 3: Pointer Fun.
  ============================================================================
  */
 
